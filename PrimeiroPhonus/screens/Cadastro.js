@@ -1,21 +1,29 @@
+/*Tela de cadastro, utilizando os servicos do Google Firebase (Firestore)*/
+
 import React,{useState} from  'react'
 import {View,TouchableOpacity, Image,Text,ImageBackground,TextInput, StyleSheet,Modal, ScrollView, Button} from 'react-native'
-import Firestore from '@react-native-firebase/firestore'
+import Firestore from '@react-native-firebase/firestore' //importando a biblioteca firestore
 
 
-
+//navigation é uma propriedade do React Navigation, através dela é que navegamos entre telas
 export default ({navigation})=>{
 
-const [avatarVisivel,setAvatarVisivel]=useState(false)
-const [avatar,setAvatar]=useState(null)
-const [nomeUsuario,setNomeUsuario]=useState(null)
-const [emailUsuario,setEmailusuario]=useState(null)
-const [senhaUsuario,setSenhaUsuario]=useState(null)
-const [avatarSelecionado,setAvatarSelecionado]=useState(null)
-const [avatarDiretorio,setAvatarDiretorio]=useState(null)
-const [cadastrado,setCadastrado]=useState(false)
-let dadosAvatar=[]
+    //utilizando React Hooks, para atualizar valores em tempo real, em seguida armazenar no banco
+const [avatarVisivel,setAvatarVisivel]=useState(false)  //definir se o modal de avatares está visível ou não
+const [avatar,setAvatar]=useState(null) //armazenará todos os dados dos avatares
+const [nomeUsuario,setNomeUsuario]=useState(null)// armazenará o apelido digitado pelo usuário
+const [emailUsuario,setEmailusuario]=useState(null)//armazenará o email digitado pelo usuário
+const [senhaUsuario,setSenhaUsuario]=useState(null)//armazenará a senha digitada pelo usuário
+const [avatarSelecionado,setAvatarSelecionado]=useState(null) //armazenará qual o nome do usuário selecionado
+const [avatarDiretorio,setAvatarDiretorio]=useState(null)//armazenará qual o diretório em que o usuário selecionado se encontra
+const [cadastrado,setCadastrado]=useState(false)//verificará se o cadastro foi efetivado para apresentar um Modal
+let dadosAvatar=[]//array que armazená que armazenrá elementos criados com os dados dos avatares, que em seguida serão armazenados no [avatar,setAvatar]
+
+//Função que pegará os dados dos avatares do banco de dados e mostrará na tela
 mostraAvatar=async()=>{
+    try{
+
+    
   
   const dados=await Firestore().collection('avatar').orderBy('nome','asc').get()
 dados.forEach((data,index)=>{
@@ -32,25 +40,34 @@ dados.forEach((data,index)=>{
 })
 
 setAvatar(dadosAvatar)
+    }catch(ex)
+    {
+        //Possível erro
+    }
 
- //setAvatar(avatar)
+ 
  
 
 }
 
-
+//função que fará o cadastro
 cadastro=async()=>{
     try{
 
-    
+    //verificar se o usuário digitou todos os dados 
+        if(nomeUsuario!=null && emailUsuario!=null && senhaUsuario!=null && avatarDiretorio!=null){
+            //adicionando os valores no banco
 Firestore().collection('usuario').add({
     Apelido:nomeUsuario,
     Email:emailUsuario,
     Senha:senhaUsuario,
     Avatar:avatarDiretorio
 })
+
 setCadastrado(!cadastrado)
-    }catch(ex){
+        }
+        
+}catch(ex){
 
     }
 
@@ -63,6 +80,7 @@ setCadastrado(!cadastrado)
             <ImageBackground source={require('../imagens/fundo.png')} style={{width:500,height:830}}> 
         <View style={{width:150,height:50}}>
 
+              {/*O botão no react native é muito limitado, prinicpalmente em questões gráficos, por isso, muitas vezes é utilizado o componente TouchableOpacity */}
             <TouchableOpacity onPress={()=>navigation.goBack()}>
              <Image source={require('../imagens/voltar.png')} style={{marginLeft:'10%',marginTop:'10%'}}></Image>
             </TouchableOpacity>
@@ -73,13 +91,15 @@ setCadastrado(!cadastrado)
 
             <Text style={{fontSize:30,color:'white'}}>CADASTRO</Text>
         </View>
+        {/*Adicionando os Inputs */}
         <View style={estilo.divisao}><TextInput placeholder="Apelido" style={estilo.dados} onChangeText={texto=>setNomeUsuario(texto)}></TextInput></View>
         <View style={estilo.divisao}><TextInput placeholder="Email" style={estilo.dados} onChangeText={texto=>setEmailusuario(texto)}></TextInput></View>
-        <View style={estilo.divisao}><TextInput placeholder="Senha" secureTextEntry={true} style={estilo.dados} onChangeText={texto=>setSenhaUsuario(texto)}></TextInput></View>
+        <View style={estilo.divisao}><TextInput placeholder="Senha" secureTextEntry={true} /*Secure entry criptografa os dados */ style={estilo.dados} onChangeText={texto=>setSenhaUsuario(texto)}></TextInput></View>
         <View style={{ width:'30%',height:40, marginLeft:'25%',marginTop:'5%',backgroundColor:'yellow', borderRadius:40}}>
         <TouchableOpacity onPress={()=>{
-            mostraAvatar()
-            setAvatarVisivel(!avatarVisivel)}}>
+            mostraAvatar()//carrega todos os avatares
+            setAvatarVisivel(!avatarVisivel) //mostra o Modal com os avaters
+            }}>
         <Text style={{color:'black', textAlign:'center'}}>Avatar</Text>
         </TouchableOpacity>
  
@@ -95,6 +115,7 @@ setCadastrado(!cadastrado)
         </View>
 
 
+              {/*Modal que mostrará as opções de avatares */}
 
 
         <Modal transparent={true} visible={avatarVisivel}>
@@ -127,7 +148,9 @@ setCadastrado(!cadastrado)
             </View>
         </Modal>
 
-        <Modal transparent={true} visible={cadastrado}>
+        {/*Modal que notifica que o cadastro foi efetivado*/}
+
+        <Modal transparent={true} visible={cadastrado} animationType={'fade'}>
 
             <View style={{alignItems:'center',marginTop:'40%',backgroundColor:'white'}}>
 
@@ -136,8 +159,14 @@ setCadastrado(!cadastrado)
            <Text style={{fontSize:40}}>Usuário Cadastrado</Text>
 
            <Button title="OK!!" onPress={()=>{
+               try{
+
+               
                setCadastrado(!cadastrado)
-               navigation.goBack()
+               navigation.goBack()//voltar para a página inicial
+               }catch(ex){
+                   //Possível erro
+               }
            }}></Button>
 
             </View>

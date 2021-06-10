@@ -1,4 +1,5 @@
 
+/*Arquivo raiz do Projeto. Todos as telas são importadas para a navegação com React Navigation */
 
 import React from 'react';
 import {
@@ -23,18 +24,7 @@ const Stack=createStackNavigator()
 export default function App(){
 
 
-  /*return(
-<View>
-<NavigationContainer>
-  <Stack.Navigator>
-
-<Stack.Screen name="Inicial" component={TelaInicial}></Stack.Screen>
-
-
-  </Stack.Navigator>
-</NavigationContainer>
-</View>
-  );*/
+ 
   return(
     <NavigationContainer>
       <Stack.Navigator>

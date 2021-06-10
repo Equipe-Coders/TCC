@@ -1,8 +1,10 @@
+/*Tela de Menu */
 import React, {useState} from  'react'
 import {ImageBackground, View, TouchableOpacity, Image,Text,StyleSheet, Button} from 'react-native'
 
-export default ({navigation,apelidoUser,route})=>{
-
+//a proprieda route recebe os dados enviados
+export default ({navigation,route})=>{
+//vai para a tela inicial
 deslogar=()=>{
     navigation.reset({
         index:0,

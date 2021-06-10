@@ -1,6 +1,7 @@
+/*TEla Inicial, utilizando a biblioteca do Lottie (para desenhos animados-->arquivos encontrados na pasta lottie) e Reanimated (para animar componentes) */
 import React from 'react'
 import {View,ImageBackground,StyleSheet,Text, Image, TouchableOpacity} from 'react-native'
-import {PanGestureHandler} from 'react-native-gesture-handler'
+import {PanGestureHandler} from 'react-native-gesture-handler' //Gesture Handler captura as interações do usuário com a tela (como por exemplo tocar e arrastar)
 import Reanimated, {useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring}  from 'react-native-reanimated'
 import Lottie from 'lottie-react-native'
 
@@ -8,6 +9,8 @@ import Lottie from 'lottie-react-native'
 export default ({navigation})=>{
     const posX=useSharedValue(0)
     const posY=useSharedValue(0)
+
+    //capturando a interação
 
     const onGestureEvent=useAnimatedGestureHandler({
 
