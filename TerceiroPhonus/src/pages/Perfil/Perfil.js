@@ -1,0 +1,166 @@
+import React,{useState,useEffect} from 'react'
+import {View,Text, Image, Alert, TouchableOpacity, Modal,FlatList,ActivityIndicator, ScrollView} from 'react-native'
+import Estilo from './Estilo'
+import Firestore from '@react-native-firebase/firestore'
+import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Reanimated,{useSharedValue,useAnimatedStyle, withSpring} from 'react-native-reanimated'
+
+
+
+export default({route})=>{
+    const [avatar,setAvatar]=useState(route.params.Avatar)
+    const [avatarSelecionado,setAvatarSelecionado]=useState(route.params.Avatar)
+    const [nome,setNome]=useState(route.params.Nome)
+    const [id,setID]=useState(route.params.ID)
+    const [modal,setModal]=useState(false)
+    const [avatares,setAvatares]=useState([])
+    
+
+    if(!route.params.Google){
+
+        Firestore().collection('usuario').doc(id).onSnapshot(dadosUsuario=>{
+            setNome(dadosUsuario.data().Apelido)
+            setAvatar(dadosUsuario.data().Avatar)
+        })
+        
+    }
+//Firestore.FieldValue.increment(1)
+    
+    const rModal=useSharedValue(2000)
+
+    const styleModal=useAnimatedStyle(()=>{
+        return{
+            transform:[{translateY:withSpring(rModal.value)}]
+        }
+    })
+
+
+  const atualizaAvatar=()=>{
+      Firestore().collection('usuario').doc(id).update({
+           Avatar:avatarSelecionado
+      })
+  }
+   
+
+     const carregaAvatares=async()=>{
+
+
+       await Firestore().collection('avatar').onSnapshot(querySnapShot=>{
+           const arrayCoresAvatares=[]
+           const arrayAvatares=[]
+           for(let i=0;i<querySnapShot.size;i++){
+              arrayCoresAvatares.push('black')
+           }
+
+           querySnapShot.forEach((documentSnapShot,index)=>{
+               arrayAvatares.push(<Reanimated.View key={index} style={[{
+                   borderRadius:20,
+                   margin:10,
+                   borderStyle:'solid',
+                   borderWidth:5,
+                   borderColor:'black'
+                   }]}>
+                       <TouchableOpacity onPress={()=>setAvatarSelecionado(documentSnapShot.data().diretorio)}>
+                          <Image source={{uri:documentSnapShot.data().diretorio}} style={{width:150,height:150}}></Image>
+                       </TouchableOpacity>
+
+               </Reanimated.View>)
+           })
+           setAvatares(arrayAvatares)
+         
+       })
+    }
+
+
+
+
+    return(
+    
+
+        <View style={{flex:1,flexDirection:'column',backgroundColor:'white'}}>
+           
+           {
+              !route.params.Google
+              ?
+              <Modal style={{flex:1}} visible={modal} transparent={true}>
+              <View style={{flex:1,flexDirection:'column',backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
+                 <Reanimated.View style={[{width:380,height:650,flexDirection:'column',backgroundColor:'white',borderRadius:15},styleModal]}>
+ 
+                        <View style={{alignItems:'flex-end'}}>
+                            <MaterialIcons name='close-circle' color={'black'} size={35} onPress={()=>{
+                            rModal.value=2000
+                            setTimeout(()=>{
+                             setModal(!modal)
+                            },300)
+                          
+                            
+                            }}>
+                            </MaterialIcons>
+                         </View>
+                         <View style={{alignItems:'center',backgroundColor:'#f2f2f2',borderRadius:10}}>
+                              
+                         <Text style={{fontSize:20,fontWeight:'bold'}}>Avatar selecionado:</Text>
+                         <Image source={{uri:avatarSelecionado}} style={{width:150,height:150}}/>
+ 
+                         </View>
+                         <ScrollView style={{flex:1}}>
+                             <View style={{flex:1,flexDirection:'column',alignItems:'center'}}>
+                                 <View style={{flex:1,alignItems:"center"}}>
+                                   <View style={{flex:1,alignItems:'center',flexDirection:'row',flexWrap:'wrap'}}>
+                                    {avatares}
+                                  </View>
+                                 </View>
+                         
+                         </View>
+                         </ScrollView>
+ 
+                         <View style={{alignItems:'center'}}>
+                             <MaterialIcons name='check-bold' color={'green'} size={70} onPress={()=>{
+                                 atualizaAvatar()
+                                 rModal.value=2000
+                                 setTimeout(()=>{
+                                  setModal(!modal)
+                                 },300)
+                                 }}></MaterialIcons>
+                         </View>
+                 </Reanimated.View>
+              </View>
+            </Modal>
+            :
+            null
+           }
+          
+
+
+
+
+            <Text style={Estilo.textoTitulo}>Perfil</Text>
+             
+            <View style={Estilo.viewImagem}>
+                {
+                    route.params.Google 
+                    ?
+                    <Image source={{uri:avatar}} style={Estilo.imagemPerfil}></Image>
+                    :
+                    <TouchableOpacity onPress={()=>{
+                        carregaAvatares().then(()=>{
+                            setModal(!modal)
+                            rModal.value=0
+                        })
+                       
+                        }}>
+                    <Image source={{uri:avatar}} style={Estilo.imagemPerfil}></Image>
+                    </TouchableOpacity>
+                }
+
+            </View>
+
+            <View style={Estilo.viewCorpo}>
+                
+                <Text>Apelido: {nome}</Text>
+
+            </View>
+        
+        </View>
+    );
+}
