@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from 'react'
-import {View,Text, Image, Alert, TouchableOpacity, Modal,FlatList,ActivityIndicator, ScrollView} from 'react-native'
+import React,{useState,useEffect, useRef} from 'react'
+import {View,Text, Image, Alert, TouchableOpacity, Modal,FlatList,ActivityIndicator, ScrollView, ImageBackground, TextInput} from 'react-native'
 import Estilo from './Estilo'
 import Firestore from '@react-native-firebase/firestore'
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -14,16 +14,31 @@ export default({route})=>{
     const [id,setID]=useState(route.params.ID)
     const [modal,setModal]=useState(false)
     const [avatares,setAvatares]=useState([])
+    const [nomeAtual,setNomeAtual]=useState(nome)
     
+useEffect(()=>{
 
     if(!route.params.Google){
 
-        Firestore().collection('usuario').doc(id).onSnapshot(dadosUsuario=>{
+        const atualiza=Firestore().collection('usuario').doc(id).onSnapshot(dadosUsuario=>{
             setNome(dadosUsuario.data().Apelido)
             setAvatar(dadosUsuario.data().Avatar)
         })
         
+        return()=>{
+            atualiza()
+        }
+    }else{
+        return()=>{
+
+        }
     }
+},[])
+
+ 
+    
+
+   
 //Firestore.FieldValue.increment(1)
     
     const rModal=useSharedValue(2000)
@@ -43,8 +58,10 @@ export default({route})=>{
    
 
      const carregaAvatares=async()=>{
-
-
+    
+        if(!route.params.Google){
+            
+        
        await Firestore().collection('avatar').onSnapshot(querySnapShot=>{
            const arrayCoresAvatares=[]
            const arrayAvatares=[]
@@ -67,8 +84,17 @@ export default({route})=>{
                </Reanimated.View>)
            })
            setAvatares(arrayAvatares)
+        
          
        })
+    }
+    
+    }
+
+    const atualizaApelido=()=>{
+        Firestore().collection('usuario').doc(id).update({
+            Apelido:nomeAtual
+        })
     }
 
 
@@ -77,7 +103,8 @@ export default({route})=>{
     return(
     
 
-        <View style={{flex:1,flexDirection:'column',backgroundColor:'white'}}>
+        <View style={{flex:1,flexDirection:'column'}}>
+            <ImageBackground style={Estilo.imageBackGround} source={require('../../../assets/images/background.png')}>
            
            {
               !route.params.Google
@@ -156,10 +183,30 @@ export default({route})=>{
             </View>
 
             <View style={Estilo.viewCorpo}>
+                {
+                    route.params.Google
+                    ?
+                    <View>
+                    <Text style={{color:'white',textAlign:'center',fontWeight:'bold'}}>Apelido</Text>
+                    <TextInput value={nome} style={{backgroundColor:'white',width:250,height:50,borderRadius:10,borderStyle:'solid',borderWidth:4,borderColor:'black'}} editable={false}></TextInput>
+                    </View>
+                    :
+                    <View>
+                    <Text style={{color:'white',textAlign:'center',fontWeight:'bold'}}>Apelido</Text>
+                    <TextInput defaultValue={nome}
+                               onChangeText={text=>setNomeAtual(text)}
+                               value={nomeAtual}
+                               onEndEditing={text=>atualizaApelido()}  
+                               style={{backgroundColor:'white',width:250,height:50,borderRadius:10,borderStyle:'solid',borderWidth:4,borderColor:'black'}}                  
+                    ></TextInput>
+                    </View>
+                }
                 
-                <Text>Apelido: {nome}</Text>
+               
 
             </View>
+
+            </ImageBackground>
         
         </View>
     );

@@ -16,6 +16,8 @@ target 'TerceiroPhonus' do
 
   pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
 
+  pod 'react-native-voice', :path => '../node_modules/@react-native-voice/voice'
+
   target 'TerceiroPhonusTests' do
     inherit! :complete
     # Pods for testing

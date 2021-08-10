@@ -1,6 +1,6 @@
 import { use } from 'ast-types'
 import React,{useEffect,useState} from 'react'
-import {View,Text,FlatList,ActivityIndicator, TouchableOpacity} from 'react-native'
+import {View,Text,FlatList,ActivityIndicator, TouchableOpacity, ImageBackground} from 'react-native'
 import Estilo from './Estilo'
 import Firestore from '@react-native-firebase/firestore'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
@@ -36,6 +36,7 @@ export default({navigation})=>{
     return(
 
         <View style={{flex:1,flexDirection:'column'}}>
+          <ImageBackground style={Estilo.imageBackGround} source={require('../../../assets/images/background.png')}>
             
             <Text style={Estilo.textoTitulo}>Materiais</Text>
 
@@ -72,6 +73,8 @@ export default({navigation})=>{
                 />
               
             </View>
+
+            </ImageBackground>
             
         </View>
     );

@@ -8,18 +8,19 @@ import Firestore from '@react-native-firebase/firestore'
 import Auth from '@react-native-firebase/auth'
 export default ({navigation,route})=>{
 
-NetInfo.addEventListener(networkState=>{
-    if(networkState.isConnected && networkState.type =='wifi'){
-      navigation.reset({
-          index:0,
-          routes:[{name:'Menu'}]
-      })
-    
-    }
-})
+
 
     useEffect(()=>{
      startAnimation()
+     NetInfo.addEventListener(networkState=>{
+        if(networkState.isConnected && networkState.type =='wifi'){
+          navigation.reset({
+              index:0,
+              routes:[{name:'Menu'}]
+          })
+        
+        }
+    })
     },[])
     const animation=useSharedValue(0)
     const animationColor=useDerivedValue(()=>{

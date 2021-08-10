@@ -8,6 +8,7 @@ import TelaInicial from './src/pages/Inicio/TelaInicial'
 import Cadastro from './src/pages/Cadastro/Cadastro'
 import MostraMariais from './src/pages/Materiais/mostraMateriais/mostraMariais'
 import AtividadePort1 from './src/pages/MenuPortugues/AtividadePort1/AtividadePort1'
+import AtividadePort2 from './src/pages/MenuPortugues/AtividadePort2/AtividadePort2'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 export default ()=>{
@@ -44,6 +45,7 @@ const Stack=createStackNavigator()
             <Stack.Screen name="Cadastro" component={Cadastro} options={{headerShown:false}}></Stack.Screen>
             <Stack.Screen name="MostraMateriais" component={MostraMariais} options={{headerShown:false}}></Stack.Screen>
             <Stack.Screen name="AtividadePort1" component={AtividadePort1} options={{headerShown:false}}></Stack.Screen>
+            <Stack.Screen name="AtividadePort2" component={AtividadePort2} options={{headerShown:false}}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
        

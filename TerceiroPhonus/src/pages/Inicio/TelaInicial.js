@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {View,Text, Button, Alert, ImageBackground} from 'react-native'
+import {View,Text, Button, Alert, ImageBackground, Image, TouchableOpacity, Modal} from 'react-native'
 import {GoogleSignin} from  '@react-native-google-signin/google-signin'
 import Auth from '@react-native-firebase/auth'
 import Firestore from '@react-native-firebase/firestore'
@@ -12,28 +12,47 @@ import Estilo from './Estilo'
 import Sound from 'react-native-sound'
 import Storage from '@react-native-async-storage/async-storage'
 import NetInfo from '@react-native-community/netinfo' 
+import Reanimated,{useSharedValue,useAnimatedStyle,withSpring} from 'react-native-reanimated'
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
+
+
 export default ({navigation,route})=>{
 
 
 
-  let auxMusicaFundo=0
+
   const [nome,setNome]=useState(route.params.nome)
   const [avatar,setAvatar]=useState(route.params.avatar)
   const [id,setID]=useState(route.params.uid)
-  const [musicasFundo,setMusicasFundo]=useState(['fantasy.wav','oniku.wav','patakas.wav'])
+  const [sair,setSair]=useState(false)
 
+
+  const rModal=useSharedValue(2000)
+  const styleModal=useAnimatedStyle(()=>{
+    return{
+      transform:[{translateY:withSpring(rModal.value)}]
+    }
+  })
  
+  useEffect(()=>{
+
+    
+    if(!route.params.google){
+ 
+      const atualiza=Firestore().collection('usuario').doc(id).onSnapshot(dadosUsuario=>{
+        setAvatar(dadosUsuario.data().Avatar)
+        setNome(dadosUsuario.data().Apelido)
+        setID(dadosUsuario.id)
+    })
+    return()=>{ atualiza()}
+      }else{
+    
+       
+      }
+  },[])
   
-  if(!route.params.google){
- 
-  Firestore().collection('usuario').doc(id).onSnapshot(dadosUsuario=>{
-    setAvatar(dadosUsuario.data().Avatar)
-    setNome(dadosUsuario.data().Apelido)
-})
-  }
 
    
-
   
     
 
@@ -71,38 +90,51 @@ export default ({navigation,route})=>{
       
     }
 
-    const trocaMusica=()=>{
-       
-       if(auxMusicaFundo<musicasFundo.length-1)auxMusicaFundo++
-       else auxMusicaFundo=0
-       
-  
-       musica=new Sound(musicasFundo[auxMusicaFundo],Sound.MAIN_BUNDLE,(error)=>{
-           if(!error){
-             
-             
-             musica.setVolume(0.3)
-            setTimeout(()=>{
-              musica.play(sucess=>{
-                trocaMusica()
-              })
-            },600) 
-            
-          }
-       })
+   
       
       
-    }
+    
 
     return(
 
-      <View style={{flex:1,flexDirection:'column',backgroundColor:'#FFBF00'}}>
+      <View style={{flex:1,flexDirection:'column',backgroundColor:'white'}}>
+
+
+
+       <Modal transparent={true} style={{flex:1}} visible={sair}>
+         <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.6)',alignItems:'center',justifyContent:'center'}}> 
+           <Reanimated.View style={[{width:250,height:150,backgroundColor:'white',borderRadius:10,},styleModal]}>
+             <View style={{alignItems:'flex-end'}}><FontAwesome name='close' color={'black'} size={40} onPress={()=>{
+               setSair(!sair)
+               rModal.value=2000
+               }}></FontAwesome></View>
+
+                 <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+                 <View style={{alignItems:'center',justifyContent:'center',borderRadius:10,backgroundColor:'#FFBF00',width:150}}>
+                 <MaterialCommunity name='exit-run' color={'black'} size={70} onPress={()=>LogOut()}></MaterialCommunity>
+              </View>
+                 </View>
+            
+           </Reanimated.View>
+
+         </View>
+
+       </Modal>
+
+
+
+
 
         
-       <View>
+       <View style={{flexDirection:'row'}}>
         
-        
-         <Button title="LogOut" onPress={()=>LogOut()}></Button>
+          <TouchableOpacity onPress={()=>{
+            setSair(!sair)
+            rModal.value=0
+            }}>
+         <Image source={{uri:avatar}} style={{width:60,height:60,borderRadius:40}}></Image>
+         </TouchableOpacity>
+         <View style={{justifyContent:'center'}}><Text style={{fontWeight:'bold',fontSize:15}}>{nome}</Text></View>
        </View>
 
 

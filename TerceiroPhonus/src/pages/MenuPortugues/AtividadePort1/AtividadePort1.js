@@ -1,11 +1,12 @@
 import React,{Component} from 'react'
-import {View,Text,Image,Button,StyleSheet,TouchableOpacity, Alert,Modal,Animated,Vibration} from 'react-native'
+import {View,Text,Image,Button,StyleSheet,TouchableOpacity, Alert,Modal,Animated,Vibration, ScrollView} from 'react-native'
 import Sound from 'react-native-sound'
 import Lottie from 'lottie-react-native'
 import Tts from 'react-native-tts'
 import VerificarSilaba from './verificarSilaba'
 import AntDesign from 'react-native-vector-icons/AntDesign'
-
+import Entypo from 'react-native-vector-icons/Entypo'
+import Reanimated,{useSharedValue,useAnimatedStyle,withSpring} from 'react-native-reanimated'
 //import { set } from 'react-native-reanimated'
 
 
@@ -16,7 +17,7 @@ export default class AtividadePort extends Component{
 
     super(props)
      Tts.setDefaultLanguage('pt-BR')//configurando o idioma da voz
-
+     
      //Animação
      this.offset=new Animated.ValueXY({x:1000,y:0})
     Animated.spring(this.offset.x,{
@@ -24,7 +25,15 @@ export default class AtividadePort extends Component{
         speed:0.5,
         useNativeDriver:true
     }).start()
-   
+
+    //Reanimated
+  
+  
+
+
+   ///////////////////////////////////
+
+    this.arrayPalavras=this.embaralhaArray(this.props.route.params.content)
     
     this.acertou=false
     this.errou=false
@@ -39,16 +48,24 @@ export default class AtividadePort extends Component{
       botaoPressionado:this.pressionado,
       backgroundColor:this.backgroundSilabas,
       pressionarDesabilitado:this.pressionavel,
-      palavra:this.props.route.params.content[this.index].palavra,
-      imagem:this.props.route.params.content[this.index].imagem,
-      numSilabas:this.props.route.params.content[this.index].numSilabas,
-      silaba1:this.props.route.params.content[this.index].silaba1,
-      silaba2:this.props.route.params.content[this.index].silaba2,
-      silaba3:this.props.route.params.content[this.index].silaba3,
-      silaba4:this.props.route.params.content[this.index].silaba4,
-      silaba5:this.props.route.params.content[this.index].silaba5,
-      silaba6:this.props.route.params.content[this.index].silaba6,
+      palavra:this.arrayPalavras[this.index].palavra,
+      imagem:this.arrayPalavras[this.index].imagem,
+      numSilabas:this.arrayPalavras[this.index].numSilabas,
+      silaba1:this.arrayPalavras[this.index].silaba1,
+      silaba2:this.arrayPalavras[this.index].silaba2,
+      silaba3:this.arrayPalavras[this.index].silaba3,
+      silaba4:this.arrayPalavras[this.index].silaba4,
+      silaba5:this.arrayPalavras[this.index].silaba5,
+      silaba6:this.arrayPalavras[this.index].silaba6,
       silabasAux:this.silabas,
+      modalIdiomas:false,
+      traducao:{
+          fr:this.arrayPalavras[this.index].traducao[0],
+          it:this.arrayPalavras[this.index].traducao[1],
+          es:this.arrayPalavras[this.index].traducao[2],
+          en:this.arrayPalavras[this.index].traducao[3],
+        
+        }
     
   }
 
@@ -56,6 +73,20 @@ export default class AtividadePort extends Component{
 
  
 
+  }
+
+
+  
+  embaralhaArray=(array)=>{
+
+    for (let i = array.length - 1; i > 0; i--) {
+        // Escolhendo elemento aleatório
+    const j = Math.floor(Math.random() * (i + 1));
+    // Reposicionando elemento
+    [array[i], array[j]] = [array[j], array[i]];
+   }
+   // Retornando array com aleatoriedade
+    return array;
   }
 
 
@@ -76,7 +107,7 @@ export default class AtividadePort extends Component{
     this.index++
     this.silabas=[]
 
-    if(typeof this.props.route.params.content[this.index] === 'undefined'){
+    if(typeof this.arrayPalavras[this.index] === 'undefined'){
         this.index=0
         
     }
@@ -88,16 +119,23 @@ export default class AtividadePort extends Component{
       botaoPressionado:this.pressionado,
       backgroundColor:this.backgroundSilabas,
       pressionarDesabilitado:this.pressionavel,
-      palavra:this.props.route.params.content[this.index].palavra,
-      imagem:this.props.route.params.content[this.index].imagem,
-      numSilabas:this.props.route.params.content[this.index].numSilabas,
-      silaba1:this.props.route.params.content[this.index].silaba1,
-      silaba2:this.props.route.params.content[this.index].silaba2,
-      silaba3:this.props.route.params.content[this.index].silaba3,
-      silaba4:this.props.route.params.content[this.index].silaba4,
-      silaba5:this.props.route.params.content[this.index].silaba5,
-      silaba6:this.props.route.params.content[this.index].silaba6,
-      silabasAux:this.silabas
+      palavra:this.arrayPalavras[this.index].palavra,
+      imagem:this.arrayPalavras[this.index].imagem,
+      numSilabas:this.arrayPalavras[this.index].numSilabas,
+      silaba1:this.arrayPalavras[this.index].silaba1,
+      silaba2:this.arrayPalavras[this.index].silaba2,
+      silaba3:this.arrayPalavras[this.index].silaba3,
+      silaba4:this.arrayPalavras[this.index].silaba4,
+      silaba5:this.arrayPalavras[this.index].silaba5,
+      silaba6:this.arrayPalavras[this.index].silaba6,
+      silabasAux:this.silabas,
+      traducao:{
+        fr:this.arrayPalavras[this.index].traducao[0],
+        it:this.arrayPalavras[this.index].traducao[1],
+        es:this.arrayPalavras[this.index].traducao[2],
+        en:this.arrayPalavras[this.index].traducao[3],
+      
+      }
     })
 
    
@@ -108,6 +146,7 @@ export default class AtividadePort extends Component{
 
   adicionaLetra=async(letra,index)=>{
      Vibration.vibrate(5,false)
+     Tts.setDefaultLanguage('pt-BR')
     await Tts.speak(VerificarSilaba(letra),{
         androidParams:{
             KEY_PARAM_PAN: 1,
@@ -206,19 +245,47 @@ this.mudaErrou()
     ]).start();
  }
 
-  
+ falaTraducao=(siglaIdioma)=>{
+
+    
+    switch(siglaIdioma){
+        case 'fr':
+            Tts.setDefaultLanguage('fr-FR')
+            Tts.speak(this.state.traducao.fr)
+            break
+        case 'it':
+            Tts.setDefaultLanguage('it-IT')
+            Tts.speak(this.state.traducao.it)
+            break
+        case 'es':
+            Tts.setDefaultLanguage('es-ES')
+            Tts.speak(this.state.traducao.es)
+            break
+        case 'en':
+            Tts.setDefaultLanguage('en-GB')
+            Tts.speak(this.state.traducao.en)
+            break
+        default:
+            break
+    }
+    
+
+ }
+ 
 
     render(){
+
+        
 
         
      
         let quadrado=[]
         while(quadrado.length)quadrado.pop()
         
-        for(let i=0;i<this.props.route.params.content[this.index].numSilabas;i++){
+        for(let i=0;i<this.arrayPalavras[this.index].numSilabas;i++){
             quadrado.push(<View style={{borderColor:'black',borderStyle:'solid',borderWidth:1,width:100,height:100,margin:5,borderRadius:25,justifyContent:'center'}} key={i}>
       
-      <Text style={{textAlign:'center',fontSize:40,textTransform:'uppercase'}}>{this.state.silabasAux[i]}</Text>
+                 <Text style={{textAlign:'center',fontSize:40,textTransform:'uppercase'}}>{this.state.silabasAux[i]}</Text>
             </View>)
         
         }
@@ -236,18 +303,73 @@ this.mudaErrou()
         }
         return(
 
+
+
+
+
+
        <View style={{flexDirection:'column'}}>
 
-   <View style={{alignItems:'flex-end',marginRight:30,marginTop:5}}>
-    <TouchableOpacity onPress={()=>Tts.speak(this.state.palavra,{
-        androidParams:{
+
+       <Modal style={{flex:1}} transparent={true} visible={this.state.modalIdiomas}>
+
+           <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
+              
+              <Reanimated.View style={[{height:'90%',width:'90%',backgroundColor:'white',borderRadius:15},]}>
+   
+                <View style={{flexDirection:'row-reverse'}}><AntDesign name='closecircle' color={'black'} size={46} onPress={()=>this.setState({...this.state,modalIdiomas:!this.state.modalIdiomas})}></AntDesign></View>
+
+
+                 <ScrollView style={{flex:1}}>
+                      
+                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+                   
+                      <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('fr')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/france.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.fr}</Text>
+                      </View>
+                      <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('it')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/italy.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.it}</Text>
+                      </View>
+                      <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('es')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/spain.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.es}</Text>
+                       </View>
+                      <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('en')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/united-kingdom.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.en}</Text>
+                     </View>
+                     
+                   </View>
+
+                 </ScrollView>
+
+              </Reanimated.View>
+
+           </View>
+
+
+       </Modal>
+
+
+
+
+
+
+       <View style={{marginRight:30,marginTop:5,flexDirection:'row-reverse'}}>
+       <TouchableOpacity onPress={()=>{
+           
+           Tts.setDefaultLanguage('pt-BR')
+           Tts.speak(this.state.palavra,{
+            androidParams:{
             KEY_PARAM_PAN: 1,
             KEY_PARAM_VOLUME: 1,
             KEY_PARAM_STREAM: 'STREAM_MUSIC',
-        }
-    })}>
+       }
+       })}}>
 
         <AntDesign name='sound' color={'black'} size={46}></AntDesign>
+  </TouchableOpacity>
+  <TouchableOpacity style={{marginRight:20}} onPress={()=>this.setState({...this.state,modalIdiomas:!this.state.modalIdiomas})}>
+
+      <Entypo name='info-with-circle' color={'black'} size={46}></Entypo>
   </TouchableOpacity>
 
    </View>
@@ -280,16 +402,12 @@ this.mudaErrou()
          </TouchableOpacity>
      </View>
     </View>
-            <View>
-
-             
-            </View>
+           
 
 
+   <View style={{alignItems:'center',width:'100%',height:'100%'}}>
 
-   <View style={{alignItems:'center'}}>
-
-            <View style={{flexDirection:'row',flexWrap:'wrap'}}>
+            <View style={{flexDirection:'row',flexWrap:'wrap',width:'100%',height:'100%'}}>
 
 
            <View><TouchableOpacity style={[estilo.silabas,{backgroundColor:this.state.backgroundColor[0]}]} onPress={()=>this.adicionaLetra(this.state.silaba1,0)} disabled={this.state.pressionarDesabilitado[0]} ><Text style={estilo.textoSilabas}>{this.state.silaba1}</Text></TouchableOpacity></View>
@@ -332,8 +450,8 @@ const estilo=StyleSheet.create({
         borderStyle:'solid',
         borderColor:'black',
         borderWidth:2,
-        width:115,
-        height:110,
+        width:95,
+        height:'25%',
         margin:10,
         borderRadius:30,
         justifyContent:"center"

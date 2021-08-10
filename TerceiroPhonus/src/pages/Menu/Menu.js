@@ -21,15 +21,11 @@ export default ({navigation})=>{
       offlineAccess:true
 
     })
+        
   
     getDadosUsuario()
-     
-  },[])
 
-  
-
-
-  Auth().onAuthStateChanged(user=>{
+     Auth().onAuthStateChanged(user=>{
      
     
     if(user){
@@ -40,6 +36,13 @@ export default ({navigation})=>{
         
     }
   })
+     
+  },[])
+
+  
+
+
+ 
 
   
 const getDadosUsuario=async()=>{
