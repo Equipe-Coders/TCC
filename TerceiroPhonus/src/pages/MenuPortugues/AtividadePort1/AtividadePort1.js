@@ -58,6 +58,7 @@ export default class AtividadePort extends Component{
       silaba5:this.arrayPalavras[this.index].silaba5,
       silaba6:this.arrayPalavras[this.index].silaba6,
       silabasAux:this.silabas,
+      imgLottie:this.arrayPalavras[this.index].lottie,
       modalIdiomas:false,
       traducao:{
           fr:this.arrayPalavras[this.index].traducao[0],
@@ -128,6 +129,7 @@ export default class AtividadePort extends Component{
       silaba4:this.arrayPalavras[this.index].silaba4,
       silaba5:this.arrayPalavras[this.index].silaba5,
       silaba6:this.arrayPalavras[this.index].silaba6,
+      imgLottie:this.arrayPalavras[this.index].lottie,
       silabasAux:this.silabas,
       traducao:{
         fr:this.arrayPalavras[this.index].traducao[0],
@@ -319,7 +321,7 @@ this.mudaErrou()
    
                 <View style={{flexDirection:'row-reverse'}}><AntDesign name='closecircle' color={'black'} size={46} onPress={()=>this.setState({...this.state,modalIdiomas:!this.state.modalIdiomas})}></AntDesign></View>
 
-
+                    
                  <ScrollView style={{flex:1}}>
                       
                     <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
@@ -450,7 +452,7 @@ const estilo=StyleSheet.create({
         borderStyle:'solid',
         borderColor:'black',
         borderWidth:2,
-        width:95,
+        width:105,
         height:'25%',
         margin:10,
         borderRadius:30,

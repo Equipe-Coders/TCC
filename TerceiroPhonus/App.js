@@ -6,9 +6,10 @@ import Menu from './src/pages/Menu/Menu'
 import Login from './src/pages/Login/Login'
 import TelaInicial from './src/pages/Inicio/TelaInicial'
 import Cadastro from './src/pages/Cadastro/Cadastro'
-import MostraMariais from './src/pages/Materiais/mostraMateriais/mostraMariais'
+import MostraMariais from './src/pages/Materiais/mostraMateriais/mostraMateriais'
 import AtividadePort1 from './src/pages/MenuPortugues/AtividadePort1/AtividadePort1'
 import AtividadePort2 from './src/pages/MenuPortugues/AtividadePort2/AtividadePort2'
+import AtividadeMat1 from './src/pages/MenuMatematica/AtividadeMat1/AtividadeMat1'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 export default ()=>{
@@ -46,6 +47,7 @@ const Stack=createStackNavigator()
             <Stack.Screen name="MostraMateriais" component={MostraMariais} options={{headerShown:false}}></Stack.Screen>
             <Stack.Screen name="AtividadePort1" component={AtividadePort1} options={{headerShown:false}}></Stack.Screen>
             <Stack.Screen name="AtividadePort2" component={AtividadePort2} options={{headerShown:false}}></Stack.Screen>
+            <Stack.Screen name="AtividadeMat1" component={AtividadeMat1} options={{headerShown:false}}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
        

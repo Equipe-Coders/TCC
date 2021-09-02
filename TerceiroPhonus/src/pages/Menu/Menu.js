@@ -25,17 +25,19 @@ export default ({navigation})=>{
   
     getDadosUsuario()
 
-     Auth().onAuthStateChanged(user=>{
+    const verificaAuth= Auth().onAuthStateChanged(user=>{
      
     
-    if(user){
-        navigation.reset({
+         if(user){
+          navigation.reset({
           index:0,
           routes:[{name:'TelaInicial',params:{nome:user.displayName,uid:user.uid,google:true,avatar:user.photoURL}}]
         })
         
     }
   })
+  return()=>{verificaAuth()}
+  
      
   },[])
 

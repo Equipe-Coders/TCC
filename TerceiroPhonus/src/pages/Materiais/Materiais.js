@@ -1,4 +1,4 @@
-import { use } from 'ast-types'
+
 import React,{useEffect,useState} from 'react'
 import {View,Text,FlatList,ActivityIndicator, TouchableOpacity, ImageBackground} from 'react-native'
 import Estilo from './Estilo'

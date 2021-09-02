@@ -3,7 +3,6 @@ import {View,Text, Modal, Alert} from 'react-native'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import Voice from '@react-native-voice/voice'
 import Lottie from 'lottie-react-native'
-import { stat } from 'fs-extra'
 export default class extends Component{
     constructor(props){
       super(props)
@@ -137,7 +136,7 @@ export default class extends Component{
                                ?
                             <FontAwesome5Icon name='microphone-alt' color={'black'} size={70} onPress={()=>this.onButtonPress()}></FontAwesome5Icon>
                                :
-                            <FontAwesome5Icon name='microphone-alt-slash' color={'black'} size={70} onPress={()=>this.onButtonPress()}></FontAwesome5Icon>
+                            <FontAwesome5Icon name='microphone-alt-slash' color={'red'} size={70} onPress={()=>this.onButtonPress()}></FontAwesome5Icon>
                         }
                     </View>
                     <View style={{alignItems:'center'}}><Text>{this.state.palavraDita}</Text></View>

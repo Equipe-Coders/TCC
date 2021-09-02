@@ -8,6 +8,7 @@ const Estilo=StyleSheet.create({
         resizeMode:'stretch',
         width:Dimensions.get('screen').width,
         height:Dimensions.get('screen').height+50,
+        alignItems:'center'
        
     },
     textTitle:{
@@ -16,7 +17,17 @@ const Estilo=StyleSheet.create({
         color:'white',
         fontFamily:'ComickBook'
     },
-   
+    viewAtividade:{
+        width:350,
+        height:200,
+        backgroundColor:'yellow',
+        borderRadius:10,
+        borderStyle:'solid',
+        borderColor:'black',
+        borderWidth:3,
+        marginTop:10,
+        justifyContent:'center'
+    }
 })
 
 export default Estilo
