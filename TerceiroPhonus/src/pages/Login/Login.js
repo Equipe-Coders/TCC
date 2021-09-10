@@ -37,7 +37,7 @@ Firestore().collection('usuario').where('Email','==',email).where('Senha','==',s
 
                 navigation.reset({
                     index:0,
-                    routes:[{name:'TelaInicial',params:{nome:dados.data().Apelido,uid:dados.id,avatar:dados.data().Avatar}}]
+                    routes:[{name:'TelaInicial',params:{nome:dados.data().Apelido,uid:dados.id,avatar:dados.data().Avatar,email:dados.data().Email}}]
                 })
 
             })

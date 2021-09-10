@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {View,Text,Image,Button,StyleSheet,TouchableOpacity, Alert,Modal,Animated,Vibration, ScrollView} from 'react-native'
+import {View,Text,Image,Button,StyleSheet,TouchableOpacity, Alert,Modal,Animated,Vibration, ScrollView,ImageBackground, Dimensions} from 'react-native'
 import Sound from 'react-native-sound'
 import Lottie from 'lottie-react-native'
 import Tts from 'react-native-tts'
@@ -7,6 +7,7 @@ import VerificarSilaba from './verificarSilaba'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Entypo from 'react-native-vector-icons/Entypo'
 import Reanimated,{useSharedValue,useAnimatedStyle,withSpring} from 'react-native-reanimated'
+
 //import { set } from 'react-native-reanimated'
 
 
@@ -285,7 +286,7 @@ this.mudaErrou()
         while(quadrado.length)quadrado.pop()
         
         for(let i=0;i<this.arrayPalavras[this.index].numSilabas;i++){
-            quadrado.push(<View style={{borderColor:'black',borderStyle:'solid',borderWidth:1,width:100,height:100,margin:5,borderRadius:25,justifyContent:'center'}} key={i}>
+            quadrado.push(<View style={{borderColor:'black',borderStyle:'solid',borderWidth:1,width:100,height:100,margin:5,borderRadius:25,justifyContent:'center', backgroundColor:'rgba(255,255,255,0.7)'}} key={i}>
       
                  <Text style={{textAlign:'center',fontSize:40,textTransform:'uppercase'}}>{this.state.silabasAux[i]}</Text>
             </View>)
@@ -310,8 +311,9 @@ this.mudaErrou()
 
 
 
-       <View style={{flexDirection:'column'}}>
-
+       <View>
+         
+       <ImageBackground style={{flexDirection:'column',width:Dimensions.get('screen').width,height:Dimensions.get('screen').height+50}} source={require('../../../../assets/images/background.png')}>  
 
        <Modal style={{flex:1}} transparent={true} visible={this.state.modalIdiomas}>
 
@@ -367,7 +369,7 @@ this.mudaErrou()
        }
        })}}>
 
-        <AntDesign name='sound' color={'black'} size={46}></AntDesign>
+     <AntDesign name='sound' color={'black'} size={46}></AntDesign>
   </TouchableOpacity>
   <TouchableOpacity style={{marginRight:20}} onPress={()=>this.setState({...this.state,modalIdiomas:!this.state.modalIdiomas})}>
 
@@ -439,6 +441,8 @@ this.mudaErrou()
    
     </Animated.View>
 
+    </ImageBackground>
+
    </View>
 
         );
@@ -456,7 +460,8 @@ const estilo=StyleSheet.create({
         height:'25%',
         margin:10,
         borderRadius:30,
-        justifyContent:"center"
+        justifyContent:"center",
+    
         //backgroundColor:'rgb(236, 255, 69)'
    
         

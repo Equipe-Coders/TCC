@@ -33,6 +33,16 @@ export default({navigation})=>{
       if(loading){
           return <ActivityIndicator></ActivityIndicator>
       }
+
+      const navegacaoMaterial=(tipo,uri)=>{
+
+        if(tipo == 'pdf'){
+        navigation.navigate('MostraMateriais',{url:uri})
+        }
+        else if(tipo == 'vídeo'){
+          navigation.navigate('MostraVideos',{url:uri})
+        }
+      }
     return(
 
         <View style={{flex:1,flexDirection:'column'}}>
@@ -45,7 +55,7 @@ export default({navigation})=>{
             <FlatList
                 data={materiais}
                 renderItem={({ item }) => (
-                <TouchableOpacity onPress={()=>{navigation.navigate('MostraMateriais',{url:item.url})}}>
+                <TouchableOpacity onPress={()=>{navegacaoMaterial(item.tipo,item.url)}}>
 
 
  
@@ -54,7 +64,11 @@ export default({navigation})=>{
                    <View style={{flex:1}}> 
                     {
 
-                     item.tipo == 'pdf' ? <FontAwesome5 name="file-pdf" color={'black'} size={100}></FontAwesome5> : null
+                     item.tipo == 'pdf' ? <FontAwesome5 name="file-pdf" color={'black'} size={100}></FontAwesome5> 
+                     :
+                     item.tipo == 'vídeo' ? <FontAwesome5 name="video" color={'black'} size={100}></FontAwesome5>
+                     :
+                      null
 
                     }
 

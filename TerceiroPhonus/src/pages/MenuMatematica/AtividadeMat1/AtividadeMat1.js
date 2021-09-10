@@ -4,6 +4,8 @@ import Voice from '@react-native-voice/voice'
 import Lottie from 'lottie-react-native'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import Sound from 'react-native-sound'
+import AnimacaoCorreto from '../../../../assets/lottie/correct-animation.json'
+import AnimacaoIncorreto from '../../../../assets/lottie/incorrect.json'
 
 export default class extends Component{
 
@@ -45,6 +47,7 @@ componentDidMount() {
     Voice.onSpeechStart = this.onSpeechStartHandler.bind(this);
     Voice.onSpeechEnd = this.onSpeechEndHandler.bind(this);
     Voice.onSpeechResults = this.onSpeechResultsHandler.bind(this);
+    
  }
  componentWillUnmount(){
   Voice.destroy()
@@ -77,31 +80,38 @@ componentDidMount() {
     })
     if(numeroFalado == this.state.resultadoOperacao){
       
-        this.soundClaps.play()
-        this.setState({
-            ...this.state,
-            modalAcertou:true
-        })
+          await this.soundClaps.play()
+        setTimeout(()=>{
 
-        setTimeout(()=>  this.mudaDados(),1000)
+            this.setState({
+                ...this.state,
+                modalAcertou:true
+            })
+        },100) 
+
+       await setTimeout(()=>  this.mudaDados(),1200)
       
     }else{
         
-        this.soundIncorrect.play()
+        await this.soundIncorrect.play()
         this.sequenciaAcertos=0
-        this.setState({
-            ...this.state,
-            sequencia:this.sequenciaAcertos,
-            modalErrou:true
-            
-        })
-        setTimeout(()=>this.someModalErrou(),1200)
+        setTimeout(()=>{
+
+            this.setState({
+                ...this.state,
+                sequencia:this.sequenciaAcertos,
+                modalErrou:true
+                
+            })
+        },100)
+       
+        await setTimeout(()=>this.someModalErrou(),1300)
     }
  }
 
- someModalErrou(){
+ async someModalErrou(){
 
-    this.setState({
+    await this.setState({
         ...this.state,
         modalErrou:false
     })
@@ -114,7 +124,7 @@ componentDidMount() {
      this.numero1=this.gerarNumero(this.operacaoEscolhida)
      this.numero2=this.gerarNumero(this.operacaoEscolhida,1)
      this.resultado=this.pegaResultado(this.operacaoEscolhida,this.numero1,this.numero2)
-     this.setState({
+     await this.setState({
          ...this.state,
          operacao:this.operacaoEscolhida,
         num1:this.numero1,
@@ -195,7 +205,7 @@ componentDidMount() {
 
 render(){
 
-    
+   
 
     return(
 
@@ -231,25 +241,25 @@ render(){
 
           </View>
 
-          <View style={{flex:1,flexDirection:'row-reverse',}}>
+          <View style={{flex:1,}}>
 
-              <View style={{width:'25%',}}>
+              <View style={{width:'100%',height:'100%'}}>
                 {
                     this.state.sequencia >= 0 && this.state.sequencia<= 3 
                     ?
-                    <View style={{flex:1, backgroundColor:'#abedec',borderRadius:15,borderStyle:'solid',borderColor:'black',borderWidth:3}}>
-                    <Lottie source={require('../../../../assets/lottie/cold.json')} autoPlay loop></Lottie>
+                    <View style={{flex:1, backgroundColor:'#abedec',borderStyle:'solid',borderColor:'black',borderWidth:3}}>
+                    <Lottie source={require('../../../../assets/lottie/cold.json')} autoPlay loop ></Lottie>
                     </View>
                     :
                     this.state.sequencia >3 && this.state.sequencia <=6
                     ?
-                    <View style={{flex:1,backgroundColor:'#119c99',borderRadius:15,borderStyle:'solid',borderColor:'black',borderWidth:3}}>
+                    <View style={{flex:1,backgroundColor:'#119c99',borderStyle:'solid',borderColor:'black',borderWidth:3}}>
                     <Lottie source={require('../../../../assets/lottie/wind.json')} autoPlay loop></Lottie>
                     </View>
                     :
                     this.state.sequencia >6
                     ?
-                    <View style={{flex:1,backgroundColor:'#ed8a2d', borderRadius:15,borderStyle:'solid',borderColor:'black',borderWidth:3}}>
+                    <View style={{flex:1,backgroundColor:'#ed8a2d',borderStyle:'solid',borderColor:'black',borderWidth:3}}>
                     <Lottie source={require('../../../../assets/lottie/hot.json')} autoPlay loop></Lottie>
                     </View>
                     :
@@ -267,7 +277,7 @@ render(){
 
            </View>
 
-           <View style={{flex:2,flexDirection:'row-reverse'}}>
+           <View style={{flex:2,alignItems:'center'}}>
 
               <View style={{height:'100%',justifyContent:'center'}}>
                  {
@@ -288,24 +298,26 @@ render(){
          </View>
 
 
-        <Modal transparent={true} visible={this.state.modalAcertou}>
-            <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
+    
+         <Modal transparent={true} visible={this.state.modalAcertou}>
+         <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
 
-              <Lottie source={require('../../../../assets/lottie/correct-animation.json')} autoPlay autoSize></Lottie>
-               
-            </View>
+          <Lottie source={AnimacaoCorreto} autoSize autoPlay></Lottie>
+           
+         </View>
 
-        </Modal>
+       </Modal>
 
-        <Modal transparent={true} visible={this.state.modalErrou}>
-            <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
 
-              <Lottie source={require('../../../../assets/lottie/incorrect.json')} autoPlay speed={2}></Lottie>
-               
-            </View>
+      
+       <Modal transparent={true} visible={this.state.modalErrou}>
+      <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
 
-        </Modal>
+      <Lottie source={AnimacaoIncorreto}  autoPlay={true} speed={2}></Lottie>
+       
+    </View>
 
+</Modal>
 
 
         </View>

@@ -15,6 +15,7 @@ export default({route})=>{
     const [modal,setModal]=useState(false)
     const [avatares,setAvatares]=useState([])
     const [nomeAtual,setNomeAtual]=useState(nome)
+    const [email,setEmail]=useState(route.params.Email)
     
 useEffect(()=>{
 
@@ -188,7 +189,7 @@ useEffect(()=>{
                     ?
                     <View>
                     <Text style={{color:'white',textAlign:'center',fontWeight:'bold'}}>Apelido</Text>
-                    <TextInput value={nome} style={{backgroundColor:'white',width:250,height:50,borderRadius:10,borderStyle:'solid',borderWidth:4,borderColor:'black'}} editable={false}></TextInput>
+                    <TextInput value={nome} style={{backgroundColor:'white',width:250,height:50,borderRadius:10,}} editable={false}></TextInput>
                     </View>
                     :
                     <View>
@@ -197,11 +198,17 @@ useEffect(()=>{
                                onChangeText={text=>setNomeAtual(text)}
                                value={nomeAtual}
                                onEndEditing={text=>atualizaApelido()}  
-                               style={{backgroundColor:'white',width:250,height:50,borderRadius:10,borderStyle:'solid',borderWidth:4,borderColor:'black'}}                  
+                               style={{backgroundColor:'white',width:250,height:50,borderRadius:10,shadowColor:'black',shadowOffset:{width:0,height:1},shadowOpacity:1,shadowRadius:2,elevation:5}}                  
                     ></TextInput>
                     </View>
                 }
-                
+                <View>
+                <Text style={{color:'white',textAlign:'center',fontWeight:'bold'}}>Email</Text>
+                    <TextInput editable={false} defaultValue={email} 
+                               style={{backgroundColor:'white',width:250,height:50,borderRadius:10,shadowColor:'black',shadowOffset:{width:0,height:1},shadowOpacity:1,shadowRadius:2,elevation:5}}                  
+                    ></TextInput>
+
+                </View>
                
 
             </View>

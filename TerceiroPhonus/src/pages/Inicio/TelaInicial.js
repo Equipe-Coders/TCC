@@ -24,6 +24,7 @@ export default ({navigation,route})=>{
   const [nome,setNome]=useState(route.params.nome)
   const [avatar,setAvatar]=useState(route.params.avatar)
   const [id,setID]=useState(route.params.uid)
+  const [email,setEmail]=useState(route.params.email)
   const [sair,setSair]=useState(false)
 
 
@@ -97,7 +98,7 @@ export default ({navigation,route})=>{
 
     return(
 
-      <View style={{flex:1,flexDirection:'column',backgroundColor:'white'}}>
+      <View style={{flex:1,flexDirection:'column',backgroundColor:'#FFBF00'}}>
 
 
 
@@ -172,7 +173,7 @@ export default ({navigation,route})=>{
            ),
 
          }}
-         initialParams={{Avatar:avatar,Nome:nome,ID:id,Google:route.params.google}}
+         initialParams={{Avatar:avatar,Nome:nome,ID:id,Google:route.params.google,Email:email}}
          >
          </MaterialNavigator.Screen>
 

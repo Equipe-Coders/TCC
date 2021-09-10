@@ -15,8 +15,8 @@ const TopNavigator=createMaterialTopTabNavigator()
       <View style={{flex:1,backgroundColor:'white'}}>
         
         <TopNavigator.Navigator tabBarOptions={{showIcon:true,showLabel:false,style:{
-          backgroundColor:'#FFBF00',
-          borderTopLeftRadius:40,borderTopRightRadius:40,borderBottomLeftRadius:40,borderBottomRightRadius:40
+          backgroundColor:'rgba(255,191,0,0.5)',
+          
         }}}>
           <TopNavigator.Screen name='MenuMatematica' component={MenuMatematica} options={{
             tabBarIcon:({color})=>(

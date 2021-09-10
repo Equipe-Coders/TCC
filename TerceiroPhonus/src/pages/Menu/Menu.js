@@ -31,7 +31,7 @@ export default ({navigation})=>{
          if(user){
           navigation.reset({
           index:0,
-          routes:[{name:'TelaInicial',params:{nome:user.displayName,uid:user.uid,google:true,avatar:user.photoURL}}]
+          routes:[{name:'TelaInicial',params:{nome:user.displayName,uid:user.uid,google:true,avatar:user.photoURL,email:user.email}}]
         })
         
     }
@@ -58,7 +58,7 @@ const getDadosUsuario=async()=>{
 
         await navigation.reset({
           index:0,
-          routes:[{name:'TelaInicial',params:{nome:dadosUsuario.data().Apelido,uid:dadosUsuario.id,avatar:dadosUsuario.data().Avatar}}]
+          routes:[{name:'TelaInicial',params:{nome:dadosUsuario.data().Apelido,uid:dadosUsuario.id,avatar:dadosUsuario.data().Avatar,email:dadosUsuario.data().Email}}]
         })
 
 
