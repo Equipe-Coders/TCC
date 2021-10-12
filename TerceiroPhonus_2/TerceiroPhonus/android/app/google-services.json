@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "925295944496",
+    "project_id": "projetotcc-aad09",
+    "storage_bucket": "projetotcc-aad09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925295944496:android:69b67e4e07b9700a1ddef5",
+        "android_client_info": {
+          "package_name": "com.primeirophonus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925295944496-5su57bubk9g133k7405u6bcl4qbj0tlf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.primeirophonus",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "925295944496-fbrkj7a66bpro88fcfdicd2rgjcib6i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLlqBHvei9mTaXgYWV2IYYpV7sg8r-fg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925295944496-fbrkj7a66bpro88fcfdicd2rgjcib6i3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925295944496:android:aac7dbd7046e96f11ddef5",
+        "android_client_info": {
+          "package_name": "com.segundophonus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925295944496-lkvf94fij5l9uc5od73e1g2kb9ddl1bv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.segundophonus",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "925295944496-fbrkj7a66bpro88fcfdicd2rgjcib6i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLlqBHvei9mTaXgYWV2IYYpV7sg8r-fg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925295944496-fbrkj7a66bpro88fcfdicd2rgjcib6i3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925295944496:android:204fa13d39c3414d1ddef5",
+        "android_client_info": {
+          "package_name": "com.terceirophonus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925295944496-0k3b8lqe2b3pul1045uboeoocpmi2u3b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.terceirophonus",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "925295944496-fbrkj7a66bpro88fcfdicd2rgjcib6i3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLlqBHvei9mTaXgYWV2IYYpV7sg8r-fg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925295944496-fbrkj7a66bpro88fcfdicd2rgjcib6i3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
