@@ -50,7 +50,6 @@ componentDidMount() {
     
  }
  componentWillUnmount(){
-  global.somFundo(global.auxiliar)
   Voice.destroy()
   
  }
@@ -211,8 +210,11 @@ render(){
 
     return(
 
-        <View style={{flex:1,flexDirection:'column'}}>
+        <View style={{flex:1,flexDirection:'column',alignItems:'center', justifyContent:'center',
+        backgroundColor:this.state.sequencia >= 0 && this.state.sequencia<= 3 ? '#abedec' : this.state.sequencia >3 && this.state.sequencia <=6 ? '#119c99' : '#ed8a2d'}}>
+          <View style={{height:'95%',width:'95%',backgroundColor:'rgba(255,255,255,0.8)',borderRadius:15}}>
 
+          
     
          <View style={{flex:1,flexDirection:'row',}}>
 
@@ -249,19 +251,19 @@ render(){
                 {
                     this.state.sequencia >= 0 && this.state.sequencia<= 3 
                     ?
-                    <View style={{flex:1, backgroundColor:'#abedec',borderStyle:'solid',borderColor:'black',borderWidth:3}}>
+                    <View style={{flex:1, backgroundColor:'#abedec',}}>
                     <Lottie source={require('../../../../assets/lottie/cold.json')} autoPlay loop ></Lottie>
                     </View>
                     :
                     this.state.sequencia >3 && this.state.sequencia <=6
                     ?
-                    <View style={{flex:1,backgroundColor:'#119c99',borderStyle:'solid',borderColor:'black',borderWidth:3}}>
+                    <View style={{flex:1,backgroundColor:'#119c99',}}>
                     <Lottie source={require('../../../../assets/lottie/wind.json')} autoPlay loop></Lottie>
                     </View>
                     :
                     this.state.sequencia >6
                     ?
-                    <View style={{flex:1,backgroundColor:'#ed8a2d',borderStyle:'solid',borderColor:'black',borderWidth:3}}>
+                    <View style={{flex:1,backgroundColor:'#ed8a2d',}}>
                     <Lottie source={require('../../../../assets/lottie/hot.json')} autoPlay loop></Lottie>
                     </View>
                     :
@@ -304,7 +306,7 @@ render(){
          <Modal transparent={true} visible={this.state.modalAcertou}>
          <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
 
-          <Lottie source={AnimacaoCorreto} autoSize autoPlay></Lottie>
+          <Lottie source={AnimacaoCorreto} autoSize  progress={0.9}></Lottie>
            
          </View>
 
@@ -315,12 +317,13 @@ render(){
        <Modal transparent={true} visible={this.state.modalErrou}>
       <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
 
-      <Lottie source={AnimacaoIncorreto}  autoPlay={true} speed={2}></Lottie>
+      <Lottie source={AnimacaoIncorreto}  progress={0.65} speed={2}></Lottie>
        
     </View>
 
 </Modal>
-
+ 
+</View>
 
         </View>
 

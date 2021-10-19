@@ -13,7 +13,9 @@ import AtividadeMat1 from './src/pages/MenuMatematica/AtividadeMat1/AtividadeMat
 import MostraVideo from './src/pages/Materiais/MostraVideo/MostraVideo'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
+
 export default ()=>{
+
 
 
   

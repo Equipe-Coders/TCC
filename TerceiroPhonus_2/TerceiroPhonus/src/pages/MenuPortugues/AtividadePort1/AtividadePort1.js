@@ -90,10 +90,7 @@ export default class AtividadePort extends Component{
   }
 
 
- componentWillUnmount(){
-    // global.som.play()
-    global.somFundo(global.auxiliar)
- }
+ 
   embaralhaArray=(array)=>{
 
     for (let i = array.length - 1; i > 0; i--) {
@@ -213,7 +210,7 @@ if(aux == this.state.palavra){
     
     
     this.acertou=true
-    this.mudaPontuacao()
+    if(!this.props.route.params.Google)this.mudaPontuacao()
     setTimeout(()=>this.acertou=false,500)
     setTimeout(()=>this.mudaDados(),1000)
 
@@ -384,19 +381,19 @@ this.modalFinalizou=true
                     
                  <ScrollView style={{flex:1}}>
                       
-                    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+                    <View style={{flex:1}}>
                    
                       <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
-                          <TouchableOpacity onPress={()=>this.falaTraducao('fr')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/france.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.fr}</Text>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('fr')} ><Image source={require('../../../../assets/images/flags/france.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.fr}</Text>
                       </View>
                       <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
-                          <TouchableOpacity onPress={()=>this.falaTraducao('it')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/italy.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.it}</Text>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('it')}><Image source={require('../../../../assets/images/flags/italy.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.it}</Text>
                       </View>
                       <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
-                          <TouchableOpacity onPress={()=>this.falaTraducao('es')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/spain.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.es}</Text>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('es')} ><Image source={require('../../../../assets/images/flags/spain.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.es}</Text>
                        </View>
                       <View style={{width:'100%',marginTop:20,borderBottomColor:'black',borderBottomWidth:1,flexDirection:'row'}}>
-                          <TouchableOpacity onPress={()=>this.falaTraducao('en')} style={{marginLeft:100}}><Image source={require('../../../../assets/images/flags/united-kingdom.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.en}</Text>
+                          <TouchableOpacity onPress={()=>this.falaTraducao('en')}><Image source={require('../../../../assets/images/flags/united-kingdom.png')}></Image></TouchableOpacity><Text style={{textTransform:'uppercase',fontWeight:'bold',marginLeft:15,textAlignVertical:'center'}}>{this.state.traducao.en}</Text>
                      </View>
                      
                    </View>
@@ -551,7 +548,7 @@ const estilo=StyleSheet.create({
         borderStyle:'solid',
         borderColor:'black',
         borderWidth:2,
-        width:95,
+        width:105,
         height:'25%',
         margin:10,
         borderRadius:30,

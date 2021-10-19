@@ -227,8 +227,10 @@ useEffect(()=>{
                     ></TextInput>
 
                 </View>
-
-
+ 
+             {
+                 !route.params.Google
+                 ?
                 <View>
 
                 <TouchableHighlight style={{backgroundColor:'#ffff00',width:200,height:50,borderRadius:15,justifyContent:'center',marginTop:15,shadowColor:'black',shadowOffset:{width:0,height:1},shadowOpacity:1,shadowRadius:2,elevation:5}} underlayColor={'rgba(255,255,0,0.5)'} onPress={()=>setModalRank(!modalRank)}>
@@ -236,16 +238,23 @@ useEffect(()=>{
                 </TouchableHighlight>    
 
                 </View>
+                :
+                null
                
-
+             }
             </View>
 
             </ImageBackground>
 
+         
+            {
+                !route.params.Google
+                ?
             <Modal style={{flex:1}} transparent={true} visible={modalRank}>
                 <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
+                   
                  
-                 <View style={{backgroundColor:'white',width:'90%',height:'70%',borderRadius:15}}>
+                 <View style={{backgroundColor:'rgba(255,255,255,0.7)',width:'90%',height:'70%',borderRadius:15}}>
                   <View style={{flexDirection:'row-reverse'}}><FontAwesome name='close' color={'black'} size={46} onPress={()=>setModalRank(!modalRank)}></FontAwesome></View>
                  <ScrollView>
                   <View>
@@ -253,11 +262,14 @@ useEffect(()=>{
                   </View>
                   </ScrollView>
                  </View>
-                 
+                
 
                 </View>
 
             </Modal>
+            :
+            null
+         }
         
         </View>
     );

@@ -71,9 +71,10 @@ export default ({navigation})=>{
     const recuperarSenha=()=>{
 
         if(emailEnviar==''){
+            
             Alert.alert('Você deve preencher seu email!!')
         }else{
-            Firestore().collection('usuario').where('Email','==',emailEnviar).limit(1).get().then(dadosUsuario=>{
+            Firestore().collection('usuario').where('Email','==',emailEnviar.trim()).limit(1).get().then(dadosUsuario=>{
                 if(!dadosUsuario.empty){
                     setEnviandoEmail(true)
                     dadosUsuario.forEach(data=>{
@@ -95,6 +96,7 @@ export default ({navigation})=>{
                                setModalEnviarEmail(!modalEnviarEmail)
                                setEnviandoEmail(false)
                                setSucessoEnviar(false)
+                               setEmailEnviar('')
                             },1000)
                         })
                     })

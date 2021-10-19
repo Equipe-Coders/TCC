@@ -32,7 +32,7 @@ const TopNavigator=createMaterialTopTabNavigator()
             <MaterialIcons name='format-letter-case' color={color} size={26}></MaterialIcons>
            )
           }}
-          initialParams={{ID:route.params.ID}}
+          initialParams={{ID:route.params.ID,Google:route.params.Google}}
           ></TopNavigator.Screen>
         </TopNavigator.Navigator>
         </View>

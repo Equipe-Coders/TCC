@@ -1,3 +1,4 @@
+
 import React,{Component} from 'react'
 import {View,Text, Modal, Alert} from 'react-native'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
@@ -8,6 +9,7 @@ export default class extends Component{
       super(props)
        this.palavras=this.misturaPalavras(props.route.params.palavras)
        this.index=0
+       
        this.state={
            palavraAtual:this.palavras[this.index],
            microfonePressionado:false,
@@ -24,7 +26,6 @@ export default class extends Component{
      }
      componentWillUnmount(){
       Voice.destroy()
-      global.somFundo(global.auxiliar)
      }
     onSpeechResultsHandler(result){
     
@@ -108,6 +109,7 @@ export default class extends Component{
      return palavra[0]
     }
 
+    
      
     render(){
    

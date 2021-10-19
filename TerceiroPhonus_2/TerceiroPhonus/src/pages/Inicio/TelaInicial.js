@@ -50,36 +50,15 @@ export default ({navigation,route})=>{
     })
 
     const rank=Firestore().collection('usuario').onSnapshot(()=>atualizaRanking())
-    global.somFundo(0)
-
-    AppState.addEventListener('change',nextAppState=>{
-      if(AppState.currentState === 'background'){
-        global.som.stop()
-      }else if(AppState.currentState === 'active'){
-        global.somFundo(global.auxiliar)
-      }
-    })
-    
+  
 
     return()=>{ atualiza()
                 rank()
-                AppState.removeEventListener('change',nextAppState)
+          
               }
       }else{//logado com a conta do google
 
-      global.somFundo(0)
-
-      AppState.addEventListener('change',nextAppState=>{
-        if(AppState.currentState === 'background'){
-          global.som.stop()
-        }else if(AppState.currentState === 'active'){
-          global.somFundo(global.auxiliar)
-        }
-      })
-
-      return()=>{
-        AppState.removeEventListener('change',nextAppState)
-      }
+    
 
       }
      
@@ -101,34 +80,7 @@ export default ({navigation,route})=>{
     })
    }
   
-   global.somFundo=function(aux){
-
-    global.auxiliar=aux
-    let numSom=sonsDisponiveis.length
-    
-   Sound.setCategory('Playback')
-   global.som=new Sound(sonsDisponiveis[aux],Sound.MAIN_BUNDLE,(erro)=>{
-     if(erro){
-       console.log(erro)
-     }else{
-       global.som.play(async(sucesso)=>{
-         if(sucesso){
-           if(aux<numSom-1){
-             aux++
-             
-           }else{
-             aux=0
-           }
-           somFundo(aux)
-           
-         }
-       })
-     }
-   })
   
-
-
-   }
   
   const MaterialNavigator=createMaterialBottomTabNavigator()
 
@@ -138,7 +90,7 @@ export default ({navigation,route})=>{
     const LogOut=async()=>{
 
       //se estiver logado com o google
-      global.som.stop()
+     
         if(route.params.google){
 
 
@@ -214,7 +166,7 @@ export default ({navigation,route})=>{
             }}>
          <Image source={{uri:avatar}} style={{width:60,height:60,borderRadius:40}}></Image>
          </TouchableOpacity>
-         <View style={{justifyContent:'center'}}><Text style={{fontWeight:'bold',fontSize:15}}>{`${nome} #${ranking}`}</Text></View>
+         <View style={{justifyContent:'center'}}><Text style={{fontWeight:'bold',fontSize:15}}>{`${nome} ${!route.params.google ? '# '+ ranking : ''}`}</Text></View>
        </View>
 
 
@@ -239,7 +191,7 @@ export default ({navigation,route})=>{
             <FontAwesome name="home" color={color} size={26}></FontAwesome>
           )  ,
           }}
-          initialParams={{ID:id}}
+          initialParams={{ID:id,Google:route.params.google}}
           >
          </MaterialNavigator.Screen>
 

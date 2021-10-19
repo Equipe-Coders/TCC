@@ -16,7 +16,7 @@ export default({navigation})=>{
                <View style={Estilo.viewAtividade}>
 
                    <TouchableOpacity onPress={()=>{
-                       if(global.som)global.som.stop()
+                     
                        navigation.navigate('AtividadeMat1')
                       
                        }}>

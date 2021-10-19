@@ -7,20 +7,20 @@ import Firestore from '@react-native-firebase/firestore'
 export default({navigation,route})=>{
 
     const carregaAtividade1=async()=>{
-        if(global.som)global.som.stop()
+    
         await Firestore().collection('palavras').get().then(dadosPalavaras=>{
             if (!dadosPalavaras.empty){
                 const arrayPalavras=[]
                 dadosPalavaras.forEach(palavras=>{
                   arrayPalavras.push({imagem:palavras.data().imagem,numSilabas:palavras.data().numSilabas,palavra:palavras.data().palavra,silaba1:palavras.data().silaba1,silaba2:palavras.data().silaba2,silaba3:palavras.data().silaba3,silaba4:palavras.data().silaba4,silaba5:palavras.data().silaba5,silaba6:palavras.data().silaba6,traducao:palavras.data().Traducao,lottie:palavras.data().Lottie})
                 })
-                navigation.navigate('AtividadePort1',{content:arrayPalavras,ID:route.params.ID})
+                navigation.navigate('AtividadePort1',{content:arrayPalavras,ID:route.params.ID,Google:route.params.Google})
             }
         })
     }
 
     const carregaAtividade2=async()=>{
-        if(global.som)global.som.stop()
+        
         await Firestore().collection('palavras').get().then(dadosPalavaras=>{
             if(!dadosPalavaras.empty){
                 const arrayPalavras=[]
