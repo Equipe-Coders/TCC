@@ -18,6 +18,8 @@ target 'TerceiroPhonus' do
 
   pod 'react-native-voice', :path => '../node_modules/@react-native-voice/voice'
 
+  pod 'react-native-twitter-signin', :path => '../node_modules/react-native-twitter-signin'
+
   target 'TerceiroPhonusTests' do
     inherit! :complete
     # Pods for testing

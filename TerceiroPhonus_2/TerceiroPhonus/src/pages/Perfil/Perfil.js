@@ -68,7 +68,7 @@ useEffect(()=>{
         data.forEach((dadosUsuario,index)=>{
             arrayPontos.push(<View style={{flexDirection:'row'}} key={index}>
             <View style={{flex:1,alignItems:'center'}}><Text style={{fontSize:20,color:dadosUsuario.id == id ? 'red' : 'black'}}>{index<=2 ? `#${++index}` : '-'}</Text></View>
-            <View style={{flex:2,alignItems:'center'}}><Text style={{fontSize:20,color:dadosUsuario.id == id ? 'red' : 'black'}}>{dadosUsuario.data().Apelido}</Text></View>
+            <View style={{flex:2,alignItems:'flex-start'}}><Text style={{fontSize:20,color:dadosUsuario.id == id ? 'red' : 'black',textAlign:'right'}}>{dadosUsuario.data().Apelido}</Text></View>
             <View style={{flex:2,alignItems:'center'}}><Text style={{fontSize:20,color:dadosUsuario.id == id ? 'red' : 'black'}}>{dadosUsuario.data().Pontuacao}</Text></View>
             </View>)
         })
@@ -256,7 +256,13 @@ useEffect(()=>{
                  
                  <View style={{backgroundColor:'rgba(255,255,255,0.7)',width:'90%',height:'70%',borderRadius:15}}>
                   <View style={{flexDirection:'row-reverse'}}><FontAwesome name='close' color={'black'} size={46} onPress={()=>setModalRank(!modalRank)}></FontAwesome></View>
-                 <ScrollView>
+                 <View><Text style={{textAlign:'center',fontSize:35,fontWeight:'bold'}}>RANK</Text></View>
+                <View style={{flexDirection:'row',marginTop:'5%'}}>
+                    <View style={{flex:1}}><Text style={{textAlign:'center',fontWeight:'bold'}}>Pos.</Text></View>
+                    <View style={{flex:3}}><Text style={{textAlign:'center',fontWeight:'bold'}}>Usuário</Text></View>
+                    <View style={{flex:2}}><Text style={{textAlign:'center',fontWeight:'bold'}}>Pontuação</Text></View>
+                    </View>
+                 <ScrollView style={{marginTop:'5%'}}>
                   <View>
                       {rank}
                   </View>

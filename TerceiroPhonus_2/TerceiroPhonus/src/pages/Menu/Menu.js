@@ -7,6 +7,8 @@ import {GoogleSignin,GoogleSigninButton} from '@react-native-google-signin/googl
 import Auth from '@react-native-firebase/auth'
 import Storage from '@react-native-async-storage/async-storage'
 import Firestore from '@react-native-firebase/firestore'
+import IonicIcons from 'react-native-vector-icons/Ionicons'
+
 
 export default ({navigation})=>{
 
@@ -111,6 +113,11 @@ const googleLogin=async()=>{
 
 }
 
+const twitterSignIn=async()=>{
+
+
+}
+
 
 
 
@@ -134,6 +141,17 @@ const googleLogin=async()=>{
 
 
      <GoogleSigninButton size={GoogleSigninButton.Size.Wide} style={{marginTop:10}} onPress={()=>googleLogin()}></GoogleSigninButton>
+     
+      <TouchableOpacity style={{marginTop:10, backgroundColor:'#00acee', width:'75%',height:35}}>
+        <View style={{flex:1,flexDirection:'row'}}>
+          <View style={{flex:1, justifyContent:'center',marginLeft:10}}>
+            <IonicIcons name={'logo-twitter'} size={30} color={'white'}></IonicIcons>
+          </View>
+        <View style={{flex:3, justifyContent:'center'}}>
+          <Text style={{color:'white'}}>Fazer Login com o Twitter</Text>
+          </View> 
+        </View> 
+      </TouchableOpacity>  
      </View>
      </ImageBackground>
     </View>

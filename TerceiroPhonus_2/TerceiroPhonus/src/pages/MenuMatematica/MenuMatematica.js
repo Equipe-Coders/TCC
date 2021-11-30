@@ -31,6 +31,25 @@ export default({navigation})=>{
 
                </View>
 
+
+               <View style={Estilo.viewAtividade}>
+
+               <TouchableOpacity onPress={()=>{
+  
+                   navigation.navigate('AtividadeMat2')
+   
+                }}>
+
+             <View style={{alignItems:'center'}}>
+
+           <Text style={{textAlign:'center',fontWeight:'bold'}}>FRACIONANDO</Text>
+              <Lottie source={require('../../../assets/lottie/53481-numbers.json')} loop autoPlay style={{width:130,height:130}}></Lottie>
+
+            </View>     
+           </TouchableOpacity>
+
+           </View>
+
              </ScrollView>
           
 

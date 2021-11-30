@@ -1,12 +1,14 @@
 
 import React,{Component} from 'react'
-import {View,Text, Modal, Alert} from 'react-native'
+import {View,Text, Modal, Alert, ScrollView, Image} from 'react-native'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import Voice from '@react-native-voice/voice'
 import Lottie from 'lottie-react-native'
+import Cheerio from 'cheerio'
 export default class extends Component{
     constructor(props){
       super(props)
+      this.imagemDica=[]
        this.palavras=this.misturaPalavras(props.route.params.palavras)
        this.index=0
        
@@ -14,7 +16,9 @@ export default class extends Component{
            palavraAtual:this.palavras[this.index],
            microfonePressionado:false,
            palavraDita:null,
-           acertou:false
+           acertou:false,
+           dica:false,
+           imagemDica:null
        }
       
        
@@ -28,8 +32,9 @@ export default class extends Component{
       Voice.destroy()
      }
     onSpeechResultsHandler(result){
-    
-        let palavra=this.separarPalavra(result.value)
+        
+        let palavra=''
+        palavra=this.separarPalavra(result.value)
         this.setState({
             ...this.state,
             palavraDita:palavra
@@ -108,7 +113,21 @@ export default class extends Component{
     separarPalavra(palavra){
      return palavra[0]
     }
+async carregaImagemDica(){
 
+    const searchUrl=`https://pixnio.com/pt/?s=${this.state.palavraAtual}`
+    const response = await fetch(searchUrl);
+    const htmlString = await response.text();
+    const $= Cheerio.load(htmlString)
+  //console.log(htmlString)
+    return $('.grid > div.grid-item').map((_,picture)=>({
+        imageUrl:$('img',picture).attr('src')
+        
+    }))
+    
+    
+    //console.log(list)
+}
     
      
     render(){
@@ -124,7 +143,37 @@ export default class extends Component{
                 </View>
 
               </Modal>
+
+              <Modal transparent={true} style={{flex:1}} visible={this.state.dica}>
+
+                  <View style={{flex:1,backgroundColor:'rgba(0,0,0,0.7)',alignItems:'center',justifyContent:'center'}}>
+
+                      <View style={{width:'90%',height:'90%',backgroundColor:'white',borderRadius:15}}>
+                        <View style={{flexDirection:'row-reverse'}}>
+                            <FontAwesome5Icon name={'window-close'} size={46} color={'black'} onPress={()=>this.setState({...this.state,dica:false})} style={{marginRight:'5%'}}></FontAwesome5Icon>
+                          <View>
+                          
+                                <Image source={{uri:this.state.imagemDica}} style={{width:200, height:200, marginTop:'40%'}}>
+
+                                </Image>
+                          
+                          </View>
+                        </View>
+
+                      </View>
+                  </View>
+
+              </Modal>
                 <View style={{marginTop:20}}>
+                <View style={{flexDirection:'row-reverse'}}>
+                  <FontAwesome5Icon name={'lightbulb'} size={46} color={'black'} style={{marginRight:'5%'}} onPress={async()=>{
+                    this.imagemDica=await this.carregaImagemDica()
+                    console.log(this.imagemDica[0].imageUrl)
+                      this.setState({...this.state,
+                        imagemDica:this.imagemDica[0]?.imageUrl,
+                        dica:true})
+                      }}></FontAwesome5Icon>
+                </View>
                  
                  <Text style={{textAlign:'center'}}>Leia a palavra:</Text>
 

@@ -10,6 +10,7 @@ import MostraMariais from './src/pages/Materiais/mostraMateriais/mostraMateriais
 import AtividadePort1 from './src/pages/MenuPortugues/AtividadePort1/AtividadePort1'
 import AtividadePort2 from './src/pages/MenuPortugues/AtividadePort2/AtividadePort2'
 import AtividadeMat1 from './src/pages/MenuMatematica/AtividadeMat1/AtividadeMat1'
+import AtividadeMat2 from './src/pages/MenuMatematica/AtividadeMat2/AtividadeMat2'
 import MostraVideo from './src/pages/Materiais/MostraVideo/MostraVideo'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
@@ -51,6 +52,7 @@ const Stack=createStackNavigator()
             <Stack.Screen name="AtividadePort1" component={AtividadePort1} options={{headerShown:false}}></Stack.Screen>
             <Stack.Screen name="AtividadePort2" component={AtividadePort2} options={{headerShown:false}}></Stack.Screen>
             <Stack.Screen name="AtividadeMat1" component={AtividadeMat1} options={{headerShown:false}}></Stack.Screen>
+            <Stack.Screen name="AtividadeMat2" component={AtividadeMat2} options={{headerShown:false}}></Stack.Screen>
             <Stack.Screen name="MostraVideos" component={MostraVideo} options={{headerShown:false}}></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
